@@ -36,6 +36,13 @@ class AuthStore {
     this.user = null;
   };
 
+  updateUserDetail = async (userData) => {
+    console.log(userData);
+    const res = await api.put("/update-user-detail", userData);
+    console.log(res);
+    this.setUser(res.data.token);
+  };
+
   updateCredentials = async (userData) => {
     delete api.defaults.headers.common.Authorization;
     localStorage.removeItem("myToken");

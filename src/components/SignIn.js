@@ -97,14 +97,13 @@ export default () => {
                           Remember me
                         </FormCheck.Label>
                       </Form.Check>
-                      <Card.Link className="small text-end">
-                        Lost password?
-                      </Card.Link>
                     </div>
                   </Form.Group>
-                  <Button variant="primary" type="submit" className="w-100">
-                    Sign in
-                  </Button>
+                  <div className="row d-flex justify-content-center">
+                    <Button type="submit" className="w-25 p-2">
+                      Sign in
+                    </Button>
+                  </div>
                 </Form>
                 <div className="d-flex justify-content-center align-items-center mt-4">
                   <span className="fw-normal">
