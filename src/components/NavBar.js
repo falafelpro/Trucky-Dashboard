@@ -1,16 +1,32 @@
 import React, { useState } from "react";
 import * as FaIcons from "react-icons/fa";
 import * as AiIcons from "react-icons/ai";
-import { Link } from "react-router-dom";
-import { SidebarData } from "./SidebarData";
+import { Link, useNavigate } from "react-router-dom";
+import {
+  UnsignedSidebarData,
+  CompanySidebarData,
+  AdminSidebarData,
+} from "./SidebarData";
 import "./Navbar.css";
 import { IconContext } from "react-icons";
+import authStore from "../stores/authStore";
+import { Button } from "react-bootstrap";
 
 function Navbar() {
+  let navigate = useNavigate();
+
+  const handleSignOut = (event) => {
+    authStore.signout();
+    navigate("/");
+  };
   const [sidebar, setSidebar] = useState(false);
-
   const showSidebar = () => setSidebar(!sidebar);
-
+  //find away to filter out customer role
+  const userSidebarContentbyRole = authStore.user
+    ? authStore.user.role === "admin"
+      ? AdminSidebarData
+      : CompanySidebarData
+    : UnsignedSidebarData;
   return (
     <>
       <IconContext.Provider value={{ color: "#fff" }}>
@@ -26,13 +42,17 @@ function Navbar() {
                 <AiIcons.AiOutlineClose />
               </Link>
             </li>
-            {SidebarData.map((item, index) => {
+            {userSidebarContentbyRole.map((item, index) => {
               return (
                 <li key={index} className={item.cName}>
-                  <Link to={item.path}>
-                    {item.icon}
-                    <span>{item.title}</span>
-                  </Link>
+                  {item.title === "Log Out" ? (
+                    <Button onClick={handleSignOut}>Sign-out</Button>
+                  ) : (
+                    <Link Link to={item.path}>
+                      {item.icon}
+                      <span>{item.title}</span>
+                    </Link>
+                  )}
                 </li>
               );
             })}

@@ -5,17 +5,17 @@ import * as IoIcons from "react-icons/io";
 import * as IcoMoon from "react-icons/im";
 import * as MaterialDesign from "react-icons/md";
 
-export const SidebarData = [
+export const CompanySidebarData = [
   {
-    title: "Sign-In",
-    path: "/signIn",
-    icon: <FaIcons.FaSignInAlt />,
+    title: "Home",
+    path: "/home",
+    icon: <AiIcons.AiFillHome />,
     cName: "nav-text",
   },
   {
-    title: "Home",
-    path: "/",
-    icon: <AiIcons.AiFillHome />,
+    title: "Map",
+    path: "/map",
+    icon: <FaIcons.FaMapMarkedAlt />,
     cName: "nav-text",
   },
   {
@@ -31,21 +31,46 @@ export const SidebarData = [
     cName: "nav-text",
   },
   {
-    title: "Team",
-    path: "/team",
-    icon: <IoIcons.IoMdPeople />,
+    title: "Log Out",
+    path: "/",
+    icon: <FaIcons.FaSignOutAlt />,
+    cName: "nav-text",
+  },
+];
+
+export const UnsignedSidebarData = [
+  {
+    title: "About Us",
+    path: "/about",
+    icon: <FaIcons.FaInfoCircle />,
     cName: "nav-text",
   },
   {
-    title: "Messages",
-    path: "/messages",
-    icon: <FaIcons.FaEnvelopeOpenText />,
+    title: "Sign-In",
+    path: "/signIn",
+    icon: <FaIcons.FaSignInAlt />,
     cName: "nav-text",
   },
   {
-    title: "Support",
-    path: "/support",
-    icon: <IoIcons.IoMdHelpCircle />,
+    title: "Contact Us",
+    path: "/contact",
+    icon: <FaIcons.FaPhoneSquareAlt />,
+    cName: "nav-text",
+  },
+];
+
+export const AdminSidebarData = [
+  {
+    title: "Creat Truck Profile",
+    path: "/creat-truck",
+    icon: <FaIcons.FaTruck />,
+    cName: "nav-text",
+  },
+
+  {
+    title: "Log Out",
+    path: "/",
+    icon: <FaIcons.FaSignOutAlt />,
     cName: "nav-text",
   },
 ];

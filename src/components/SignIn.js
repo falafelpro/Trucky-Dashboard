@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import * as FaIcons from "react-icons/fa";
 
 import {
@@ -11,13 +11,30 @@ import {
   Container,
   InputGroup,
 } from "react-bootstrap";
-import { Link } from "react-router-dom";
-
+import { Link, useNavigate } from "react-router-dom";
 import BgImage from "../signin.svg";
+import authStore from "../stores/authStore";
 
 export default () => {
+  let navigate = useNavigate();
+  const [user, setUser] = useState({
+    username: "",
+    password: "",
+  });
+  const handleChange = (event) => {
+    setUser({ ...user, [event.target.name]: event.target.value });
+    console.log(user);
+  };
+
+  const handleSubmit = (event) => {
+    //event.preventDefault();
+    console.log(user);
+    const res = authStore.signin(user);
+    console.log(res);
+    res ? navigate("/home") : navigate("/");
+  };
   return (
-    <main>
+    <main className="col-10">
       <section className="d-flex align-items-center my-5 mt-lg-6 mb-lg-5">
         <Container>
           <p className="text-center">
@@ -35,34 +52,38 @@ export default () => {
             >
               <div className="bg-white shadow-soft border rounded border-light p-4 p-lg-5 w-100 fmxw-500">
                 <div className="text-center text-md-center mb-4 mt-md-0">
-                  <h3 className="mb-0">Sign in to our platform</h3>
+                  <h3 className="mb-0">Sign in to Trucky platform</h3>
                 </div>
-                <Form className="mt-4">
-                  <Form.Group id="email" className="mb-4">
-                    <Form.Label>Your Email</Form.Label>
+                <Form className="mt-4" onSubmit={handleSubmit}>
+                  <Form.Group className="mb-4">
+                    <Form.Label>Companys's Username</Form.Label>
                     <InputGroup>
                       <InputGroup.Text>
                         <FaIcons.FaEnvelope />
                       </InputGroup.Text>
                       <Form.Control
+                        name="username"
                         autoFocus
                         required
-                        type="email"
-                        placeholder="example@company.com"
+                        type="text"
+                        placeholder="KushTruck.420"
+                        onChange={handleChange}
                       />
                     </InputGroup>
                   </Form.Group>
                   <Form.Group>
-                    <Form.Group id="password" className="mb-4">
+                    <Form.Group className="mb-4">
                       <Form.Label>Your Password</Form.Label>
                       <InputGroup>
                         <InputGroup.Text>
                           <FaIcons.FaUnlockAlt />
                         </InputGroup.Text>
                         <Form.Control
+                          name="password"
                           required
                           type="password"
                           placeholder="Password"
+                          onChange={handleChange}
                         />
                       </InputGroup>
                     </Form.Group>
@@ -85,35 +106,11 @@ export default () => {
                     Sign in
                   </Button>
                 </Form>
-
-                <div className="mt-3 mb-4 text-center">
-                  <span className="fw-normal">or login with</span>
-                </div>
-                <div className="d-flex justify-content-center my-4">
-                  <Button
-                    variant="outline-light"
-                    className="btn-icon-only btn-pill text-facebook me-2"
-                  >
-                    <FaIcons.FaFacebookF />
-                  </Button>
-                  <Button
-                    variant="outline-light"
-                    className="btn-icon-only btn-pill text-twitter me-2"
-                  >
-                    <FaIcons.FaTwitter />
-                  </Button>
-                  <Button
-                    variant="outline-light"
-                    className="btn-icon-only btn-pil text-dark"
-                  >
-                    <FaIcons.FaGithub />
-                  </Button>
-                </div>
                 <div className="d-flex justify-content-center align-items-center mt-4">
                   <span className="fw-normal">
                     Not registered?
-                    <Card.Link as={Link} to="/signUp" className="fw-bold">
-                      {` Create account `}
+                    <Card.Link as={Link} to="/contact" className="fw-bold">
+                      {` Contact Us `}
                     </Card.Link>
                   </span>
                 </div>

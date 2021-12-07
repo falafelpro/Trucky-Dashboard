@@ -5,10 +5,7 @@ function DashBoard() {
     <div className="container">
       <div className="row">
         <div className="side-bar col-3">hello</div>
-        <div
-          className="dashboard-container col-9"
-          style={{ backgroundColor: "red" }}
-        >
+        <div className="dashboard-container col-9">
           <div className="header">header</div>
           <div className="body">body</div>
           <div className="footer">footer</div>
