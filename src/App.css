@@ -37,7 +37,20 @@
   }
 }
 
-Button {
+.regular-button {
   background-color: #1687a7 !important;
   font-weight: bold !important;
+  color: white !important;
+}
+
+.warning-button {
+  background-color: #ffc247 !important;
+  font-weight: bold !important;
+  color: #2b4a75 !important;
+}
+
+.danger-button {
+  background-color: #1687a7 !important;
+  font-weight: bold !important;
+  color: white !important;
 }

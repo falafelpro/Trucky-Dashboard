@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import * as FaIcons from "react-icons/fa";
+import * as IconName from "react-icons/gi";
 
 import {
   Col,
@@ -44,7 +45,7 @@ export default () => {
           </p>
           <Row
             className="justify-content-center form-bg-image"
-            style={{ backgroundImage: `url(${BgImage})` }}
+            st={{ backgroundImage: `url(${BgImage})` }}
           >
             <Col
               xs={12}
@@ -59,14 +60,14 @@ export default () => {
                     <Form.Label>Companys's Username</Form.Label>
                     <InputGroup>
                       <InputGroup.Text>
-                        <FaIcons.FaEnvelope />
+                        <IconName.GiCook />
                       </InputGroup.Text>
                       <Form.Control
                         name="username"
                         autoFocus
                         required
                         type="text"
-                        placeholder="KushTruck.420"
+                        placeholder="e.g. Shake-and-Bake"
                         onChange={handleChange}
                       />
                     </InputGroup>
@@ -100,7 +101,7 @@ export default () => {
                     </div>
                   </Form.Group>
                   <div className="row d-flex justify-content-center">
-                    <Button type="submit" className="w-25 p-2">
+                    <Button type="submit" className="w-25 p-2 regular-button">
                       Sign in
                     </Button>
                   </div>
@@ -108,7 +109,7 @@ export default () => {
                 <div className="d-flex justify-content-center align-items-center mt-4">
                   <span className="fw-normal">
                     Not registered?
-                    <Card.Link as={Link} to="/contact" className="fw-bold">
+                    <Card.Link as={Link} to="/contact-us" className="fw-bold">
                       {` Contact Us `}
                     </Card.Link>
                   </span>

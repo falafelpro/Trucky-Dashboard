@@ -37,13 +37,20 @@ class AuthStore {
   };
 
   updateUserDetail = async (userData) => {
-    console.log(userData);
+    // (Works but needs critic)this one remove the old token and update localStorage
+    //with a token that contains the propatries that the user
+    //has just updated
+    localStorage.removeItem("myToken");
     const res = await api.put("/update-user-detail", userData);
-    console.log(res);
+    localStorage.setItem("myToken", res.data.token);
     this.setUser(res.data.token);
   };
 
   updateCredentials = async (userData) => {
+    //(Havent test the logic) big brain gymnastic laila what im trying to do to update the old mytoken
+    // this one i need to revisite the logic
+    //what im looking to achive in the future is to
+    //automaticly remove the token and sign the user out if the decited to change the password
     delete api.defaults.headers.common.Authorization;
     localStorage.removeItem("myToken");
     const res = await api.put("/update-credentials", userData);

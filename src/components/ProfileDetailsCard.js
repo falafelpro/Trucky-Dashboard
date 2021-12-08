@@ -7,8 +7,8 @@ function ProfileDetailsCard() {
   const [isProfileUpdateRequested, setisProfileUpdateRequested] =
     useState(false);
   const [user, setUser] = useState({
-    phoneNumber: "",
-    email: "",
+    phoneNumber: authStore.user?.phoneNumber,
+    email: authStore.user?.email,
   });
   console.log(user);
   const handleUserDetailsChange = (event) => {
@@ -38,7 +38,7 @@ function ProfileDetailsCard() {
                       placeholder="Enter your username"
                       type="text"
                       className="form-control"
-                      defaultValue={user?.username}
+                      defaultValue={authStore.user?.username}
                       disabled={true}
                     />
                   </div>
@@ -55,7 +55,7 @@ function ProfileDetailsCard() {
                       type="text"
                       className="form-control"
                       onChange={handleUserDetailsChange}
-                      defaultValue={user.phoneNumber}
+                      defaultValue={authStore.user?.phoneNumber}
                       disabled={!isProfileUpdateRequested}
                     />
                   </div>
@@ -70,7 +70,7 @@ function ProfileDetailsCard() {
                       type="email"
                       className="form-control"
                       onChange={handleUserDetailsChange}
-                      defaultValue={user.email}
+                      defaultValue={authStore.user?.email}
                       disabled={!isProfileUpdateRequested}
                     />
                   </div>
@@ -80,11 +80,16 @@ function ProfileDetailsCard() {
           </Card.Body>
           <Card.Footer>
             {isProfileUpdateRequested ? (
-              <Button type="button" onClick={handleSubmit}>
+              <Button
+                className="warning-button"
+                type="button"
+                onClick={handleSubmit}
+              >
                 Submit
               </Button>
             ) : (
               <Button
+                className="regular-button"
                 type="button"
                 onClick={() => setisProfileUpdateRequested(true)}
               >

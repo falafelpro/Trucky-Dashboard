@@ -19,7 +19,7 @@ function MenuList() {
           <div className="input-group">
             <label>Hi:</label>
             <div className="input-group-append">
-              <button type="button" className="btn btn-secondary">
+              <button type="button" className="btn warning-button">
                 Add a Dish
               </button>
             </div>

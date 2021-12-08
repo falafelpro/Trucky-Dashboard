@@ -28,9 +28,9 @@ class MenuStore {
         formData.append(key, dish[key]);
       }
       const response = await api.post("/menu", formData);
-      this.recipes.push(response.data);
+      this.dishes.push(response.data);
     } catch (error) {
-      console.error("CategoryStore -> createCategory -> error", error);
+      console.error("MenuStore -> createDish -> error", error);
     }
   };
 }

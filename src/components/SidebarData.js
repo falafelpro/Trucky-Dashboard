@@ -53,7 +53,7 @@ export const UnsignedSidebarData = [
   },
   {
     title: "Contact Us",
-    path: "/contact",
+    path: "/contact-us",
     icon: <FaIcons.FaPhoneSquareAlt />,
     cName: "nav-text",
   },

@@ -1,3 +1,4 @@
+import { observer } from "mobx-react";
 import React from "react";
 import authStore from "../stores/authStore";
 
@@ -9,4 +10,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default observer(Home);
