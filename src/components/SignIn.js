@@ -32,6 +32,7 @@ export default () => {
     console.log(user);
     const res = authStore.signin(user);
     console.log(res);
+    // REVIEW: You dont need this condition, pass navigation to the signin function and navigate in the try and catch
     res ? navigate("/home") : navigate("/");
   };
   return (

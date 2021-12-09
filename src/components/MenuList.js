@@ -3,10 +3,12 @@ import MenuItem from "./MenuItem";
 import menuStore from "../stores/menuStore";
 function MenuList() {
   const foundMenuList = menuStore.menus.map((menu) => {
+    // REVIEW: Remove the {}, they will not return the MenuItem
     <MenuItem menu={menu} />;
   });
 
   return (
+    // REVIEW: Remove fragment
     <>
       <div className="col-md-4 order-md-2 mb-4">
         <h4 className="d-flex justify-content-between align-items-center mb-3">

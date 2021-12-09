@@ -13,6 +13,7 @@ class AuthStore {
     localStorage.setItem("myToken", token);
     api.defaults.headers.common.Authorization = `Bearer ${token}`;
     this.user = decode(token);
+    // REVIEW: Remove console logs
     console.log(this.user);
   };
 

@@ -22,6 +22,7 @@ class MenuStore {
 
   createDish = async (dish) => {
     try {
+      // REVIEW: Remove console logs
       console.log(dish);
       const formData = new FormData();
       for (const key in dish) {
