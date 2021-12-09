@@ -28,11 +28,12 @@ export default () => {
   };
 
   const handleSubmit = (event) => {
-    //event.preventDefault();
-    console.log(user);
-    const res = authStore.signin(user);
-    console.log(res);
-    res ? navigate("/home") : navigate("/");
+    try {
+      const res = authStore.signin(user);
+      navigate("/home");
+    } catch (error) {
+      navigate("/");
+    }
   };
   return (
     <main className="col-10">

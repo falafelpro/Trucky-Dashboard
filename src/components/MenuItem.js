@@ -1,23 +1,22 @@
 import React from "react";
 
-function MenuItem() {
+function MenuItem({ setselectedDish, dish }) {
   return (
-    <>
-      <li
-        className="
+    <li
+      className="
                 list-group-item
                 d-flex
                 justify-content-between
                 lh-condensed
               "
-      >
-        <div>
-          <h6 className="my-0">Product name</h6>
-          <small className="text-muted">Brief description</small>
-        </div>
-        <span className="text-muted">$12</span>
-      </li>
-    </>
+      onClick={() => setselectedDish(dish)}
+    >
+      <div>
+        <h6 className="my-0">{dish.name}</h6>
+        <small className="text-muted">{dish.type}</small>
+      </div>
+      <span className="text-muted">{dish.price} KD</span>
+    </li>
   );
 }
 
