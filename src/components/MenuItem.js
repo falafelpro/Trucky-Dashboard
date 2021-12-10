@@ -1,6 +1,9 @@
+import { observer } from "mobx-react";
 import React from "react";
 
-function MenuItem({ setselectedDish, dish }) {
+function MenuItem({ setselectedDish, dish, isMenuUpdateRequested }) {
+  const handleDishClick = () =>
+    isMenuUpdateRequested ? null : setselectedDish(dish);
   return (
     <li
       className="
@@ -9,7 +12,7 @@ function MenuItem({ setselectedDish, dish }) {
                 justify-content-between
                 lh-condensed
               "
-      onClick={() => setselectedDish(dish)}
+      onClick={handleDishClick}
     >
       <div>
         <h6 className="my-0">{dish.name}</h6>
@@ -20,4 +23,4 @@ function MenuItem({ setselectedDish, dish }) {
   );
 }
 
-export default MenuItem;
+export default observer(MenuItem);

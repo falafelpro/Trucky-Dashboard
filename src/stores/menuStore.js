@@ -22,6 +22,7 @@ class MenuStore {
 
   createDish = async (dish) => {
     try {
+      console.log(dish);
       const formData = new FormData();
       for (const key in dish) {
         formData.append(key, dish[key]);

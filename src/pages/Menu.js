@@ -1,33 +1,16 @@
-import { Dropdown } from "bootstrap";
+import { observer } from "mobx-react";
 import React, { useState } from "react";
 import { MenuTypesList } from "../components/menuData";
 import MenuList from "../components/MenuList";
-import menuStore from "../stores/menuStore";
 
 function Menu() {
   const [descriptionWordCount, setDescriptionWordCount] = useState(0);
   const [selectedDish, setselectedDish] = useState(null);
-  const dishes = [
-    {
-      name: "Falafel",
-      slug: "falafel",
-      image:
-        "https://www.themediterraneandish.com/wp-content/uploads/2020/02/falafel-recipe-1.jpg",
-      type: "side",
-      description: "Middle eastern cooked food",
-      price: 300,
-    },
-    {
-      name: "Pie",
-      slug: "pie",
-      image: "https://en.wikipedia.org/wiki/File:Tarte_aux_poires_2a.jpg",
-      type: "desert",
-      description: "American cooked food",
-      price: 3,
-    },
-  ];
-
-  console.log(dishes);
+  const [isMenuUpdateRequested, setIsMenuUpdateRequested] = useState(false);
+  const [selectedType, setSelectedType] = useState("");
+  const handleSubmit = (e) => {
+    setIsMenuUpdateRequested(false);
+  };
   return (
     <div className="container">
       <div className="py-5 text-center">
@@ -35,10 +18,13 @@ function Menu() {
       </div>
 
       <div className="row">
-        <MenuList dishes={dishes} setselectedDish={setselectedDish} />
+        <MenuList
+          isMenuUpdateRequested={isMenuUpdateRequested}
+          setselectedDish={setselectedDish}
+        />
         <div className="col-md-8 order-md-1">
           <h4 className="mb-3">Dish Detail</h4>
-          <form className="needs-validation">
+          <form className="needs-validation" onSubmit={handleSubmit}>
             <div className="row">
               <div className="col-md-6 mb-3">
                 <label for="name">Name</label>
@@ -51,19 +37,31 @@ function Menu() {
                 />
               </div>
               <div className="col-md-6 mb-3">
-                <label for="dish-type-select">Select type</label>
-
-                <select
-                  class="form-select form-select"
-                  aria-label=".form-select-sm example"
-                  name="dish-type-select"
-                  value={selectedDish ? selectedDish.type : null}
-                >
-                  <option value={0}>Select a type</option>
-                  {MenuTypesList?.map((type) => {
-                    return <option value={type.slugedName}>{type.name}</option>;
-                  })}
-                </select>
+                <label>Type</label>
+                {isMenuUpdateRequested ? (
+                  <select
+                    class="form-select form-select"
+                    aria-label=".form-select-sm example"
+                    name="dish-type-select"
+                    value={selectedType}
+                    onChange={(e) => setSelectedType(e.target.value)}
+                  >
+                    <option value={0}>Select a type</option>
+                    {MenuTypesList?.map((type) => {
+                      return (
+                        <option value={type.slugedName}>{type.name}</option>
+                      );
+                    })}
+                  </select>
+                ) : (
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="name"
+                    placeholder=""
+                    value={selectedDish?.type}
+                  />
+                )}
               </div>
             </div>
 
@@ -94,16 +92,25 @@ function Menu() {
                 defaultValue={selectedDish?.price}
               />
             </div>
-
-            <hr className="mb-4" />
-            <button className="btn regular-button" type="submit">
-              Submit
-            </button>
+            {isMenuUpdateRequested ? (
+              <button className="warning-button" type="submit">
+                Submit
+              </button>
+            ) : null}
           </form>
+          {isMenuUpdateRequested ? null : (
+            <button
+              className="regular-button"
+              type="button"
+              onClick={() => setIsMenuUpdateRequested(true)}
+            >
+              Update
+            </button>
+          )}
         </div>
       </div>
     </div>
   );
 }
 
-export default Menu;
+export default observer(Menu);
