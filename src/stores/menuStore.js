@@ -20,14 +20,14 @@ class MenuStore {
     }
   };
 
-  createDish = async (dish) => {
+  createDish = async (dish, truckId) => {
     try {
       console.log(dish);
       const formData = new FormData();
       for (const key in dish) {
         formData.append(key, dish[key]);
       }
-      const response = await api.post("/menu", formData);
+      const response = await api.post(`/trucks/${truckId}/dishes`, formData);
       this.dishes.push(response.data);
     } catch (error) {
       console.error("MenuStore -> createDish -> error", error);
