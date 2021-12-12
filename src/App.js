@@ -9,6 +9,7 @@ import Profile from "./pages/Profile";
 import SiteWelcome from "./pages/SiteWelcome";
 import Menu from "./pages/Menu";
 import ContactUs from "./pages/ContactUs";
+import TruckProfileCard from "./components/TruckProfileCard";
 
 function App() {
   return (
@@ -22,6 +23,11 @@ function App() {
               <div className="header"></div>
               <div className="body">
                 <Routes>
+                  <Route
+                    exact
+                    path="/truck-profile"
+                    element={<TruckProfileCard />}
+                  />
                   <Route exact path="/contact-us" element={<ContactUs />} />
                   <Route exact path="/menu" element={<Menu />} />
                   <Route exact path="/profile" element={<Profile />} />

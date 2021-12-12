@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Form, Modal, Button, InputGroup, FormControl } from "react-bootstrap";
 import menuStore from "../stores/menuStore";
+import truckStore from "../stores/truckStore";
 import { MenuTypesList } from "./menuData";
 
 function MenuCreateModal(props) {
@@ -12,7 +13,7 @@ function MenuCreateModal(props) {
     image: "",
     description: "",
   });
-
+  const truck = truckStore.checkForTruck();
   const handleChange = (e) => {
     setDish({ ...dish, [e.target.name]: e.target.value });
     if (e.target.name === "description")
@@ -23,7 +24,7 @@ function MenuCreateModal(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    menuStore.createDish(dish);
+    menuStore.createDish(dish, truck._id);
     props.closeModal();
   };
   return (

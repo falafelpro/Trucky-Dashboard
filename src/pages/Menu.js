@@ -2,15 +2,31 @@ import { observer } from "mobx-react";
 import React, { useState } from "react";
 import { MenuTypesList } from "../components/menuData";
 import MenuList from "../components/MenuList";
+import menuStore from "../stores/menuStore";
 
 function Menu() {
   const [descriptionWordCount, setDescriptionWordCount] = useState(0);
   const [selectedDish, setselectedDish] = useState(null);
   const [isMenuUpdateRequested, setIsMenuUpdateRequested] = useState(false);
   const [selectedType, setSelectedType] = useState("");
+
   const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(selectedDish);
+    menuStore.updateDish(selectedDish, selectedDish._id);
     setIsMenuUpdateRequested(false);
   };
+
+  const handleChange = (e) => {
+    setselectedDish({ ...selectedDish, [e.target.name]: e.target.value });
+    if (e.target.name === "description")
+      setDescriptionWordCount(e.target.value.length);
+    if (e.target.name === "type") setSelectedType(e.target.value);
+    console.log(selectedDish);
+  };
+  const handleImage = (event) =>
+    setselectedDish({ ...selectedDish, image: event.target.files[0] });
+
   return (
     <div className="container">
       <div className="py-5 text-center">
@@ -33,6 +49,7 @@ function Menu() {
                   className="form-control"
                   name="name"
                   placeholder=""
+                  onChange={handleChange}
                   defaultValue={selectedDish?.name}
                 />
               </div>
@@ -42,14 +59,16 @@ function Menu() {
                   <select
                     class="form-select form-select"
                     aria-label=".form-select-sm example"
-                    name="dish-type-select"
+                    name="type"
                     value={selectedType}
-                    onChange={(e) => setSelectedType(e.target.value)}
+                    onChange={handleChange}
                   >
                     <option value={0}>Select a type</option>
                     {MenuTypesList?.map((type) => {
                       return (
-                        <option value={type.slugedName}>{type.name}</option>
+                        <option key={type.name} value={type.slugedName}>
+                          {type.name}
+                        </option>
                       );
                     })}
                   </select>
@@ -57,8 +76,9 @@ function Menu() {
                   <input
                     type="text"
                     className="form-control"
-                    name="name"
+                    name="type1"
                     placeholder=""
+                    onChange={handleChange}
                     value={selectedDish?.type}
                   />
                 )}
@@ -72,11 +92,9 @@ function Menu() {
                   placeholder="Descripe your meal here"
                   name="description"
                   maxlength="200"
-                  rows="10"
+                  rows="3"
                   defaultValue={selectedDish?.description}
-                  onChange={(e) =>
-                    setDescriptionWordCount(e.target.value.length)
-                  }
+                  onChange={handleChange}
                 ></textarea>
                 <label for="description">Description</label>
                 <p>{descriptionWordCount}/200</p>
@@ -89,6 +107,7 @@ function Menu() {
                 type="text"
                 className="form-control"
                 name="price"
+                onChange={handleChange}
                 defaultValue={selectedDish?.price}
               />
             </div>
