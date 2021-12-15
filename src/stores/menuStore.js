@@ -50,6 +50,7 @@ class MenuStore {
       this.dishes = this.dishes.map((dish) =>
         dish._id === dishId ? res.data : dish
       );
+      console.log(this.dishes);
     } catch (error) {
       console.log("menuStore -> updatedish -> error", error);
     }
@@ -65,4 +66,5 @@ class MenuStore {
   };
 }
 const menuStore = new MenuStore();
+menuStore.fetchDishes();
 export default menuStore;

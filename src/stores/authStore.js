@@ -15,11 +15,12 @@ class AuthStore {
     this.user = decode(token);
   };
 
-  signin = async (userData) => {
+  signin = async (userData, navigate) => {
     try {
       const res = await api.post("/signin", userData);
       localStorage.setItem("myToken", res.data.token);
       this.setUser(res.data.token);
+      navigate("/home");
       if (!this.user) return false;
       return true;
     } catch (error) {
