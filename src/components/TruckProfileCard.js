@@ -2,24 +2,23 @@ import { observer } from "mobx-react";
 import React, { useState } from "react";
 import { Card, Button } from "react-bootstrap";
 import truckStore from "../stores/truckStore";
+import Map from "./Map";
+import { SpecialtyList } from "../components/selectListData";
 
-function TruckProfileCard() {
+function TruckProfileCard({ oldtruck }) {
   const [isTruckUpdateRequested, setIsTruckUpdateRequested] = useState(false);
   const [truck, setTruck] = useState({
-    name: "",
-    image: "",
-    slug: "",
-    specialty: "",
-    owner: null,
-    dishes: [],
+    name: oldtruck.name,
+    image: oldtruck.image,
+    specialty: oldtruck.specialty,
     location: null,
   });
-  const handleUserDetailsChange = (event) => {
-    setTruck({ ...truck, [event.target.name]: event.target.value });
-  };
+  const [selectedLocationFromMap, setselectedLocationFromMap] = useState(null);
+  console.log(truck);
   const handleSubmit = (event) => {
-    console.log(truck);
-    truckStore.updateTruck(truck);
+    event.preventDefault();
+    //setTruck({ ...truck, location: selectedLocationFromMap });
+    truckStore.updateTruck(truck, oldtruck._id);
     setIsTruckUpdateRequested(false);
   };
   return (
@@ -33,35 +32,68 @@ function TruckProfileCard() {
             <form onSubmit={handleSubmit}>
               <div className="row">
                 <div className="mb-3 col-md-6">
-                  <div>
+                  <div className="mb-3">
                     <label className="form-label">Name</label>
                     <input
-                      name="Name"
+                      name="name"
                       required=""
                       placeholder="Enter your truck's name"
                       type="text"
                       className="form-control"
-                      defaultValue={truck?.name}
-                      disabled={true}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="row">
-                <div className="mb-3 col-md-6">
-                  <div>
-                    <label className="form-label">Email</label>
-                    <input
-                      name="email"
-                      required=""
-                      placeholder="Enter your email"
-                      type="email"
-                      className="form-control"
-                      onChange={handleUserDetailsChange}
+                      value={truck?.name}
+                      onChange={(event) =>
+                        setTruck({ ...truck, name: event.target.value })
+                      }
                       disabled={!isTruckUpdateRequested}
                     />
                   </div>
+                  <label>Specialty</label>
+                  {isTruckUpdateRequested ? (
+                    <select
+                      class="form-select form-select"
+                      aria-label=".form-select-sm example"
+                      name="specialty"
+                      value={truck.specialty}
+                      onChange={(event) =>
+                        setTruck({ ...truck, specialty: event.target.value })
+                      }
+                    >
+                      <option value={0}>Select a category</option>
+                      {SpecialtyList?.map((category) => {
+                        return (
+                          <option
+                            key={category.slugedName}
+                            value={category.name}
+                          >
+                            {category.name}
+                          </option>
+                        );
+                      })}
+                    </select>
+                  ) : (
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder=""
+                      value={truck.specialty}
+                      disabled={true}
+                    />
+                  )}
                 </div>
+                <div className="mb-3 col-md-6">
+                  <label className="form-label">Location</label>
+
+                  <Map
+                    isTruckUpdateRequested={isTruckUpdateRequested}
+                    setselectedLocationFromMap={setselectedLocationFromMap}
+                    selectedLocationFromMap={selectedLocationFromMap}
+                    setTruck={setTruck}
+                    truck={truck}
+                  />
+                </div>
+              </div>
+              <div className="row">
+                <div className="mb-3 col-md-6"></div>
               </div>
             </form>
           </Card.Body>

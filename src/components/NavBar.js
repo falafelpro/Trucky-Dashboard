@@ -46,7 +46,10 @@ function Navbar() {
               return (
                 <li key={index} className={item.cName}>
                   {item.title === "Log Out" ? (
-                    <Button className="warning-button" onClick={handleSignOut}>
+                    <Button
+                      className="warning-button rounded-pill"
+                      onClick={handleSignOut}
+                    >
                       Sign-out
                     </Button>
                   ) : (

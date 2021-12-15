@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { Form, Modal, Button, InputGroup, FormControl } from "react-bootstrap";
+import authStore from "../stores/authStore";
 import menuStore from "../stores/menuStore";
 import truckStore from "../stores/truckStore";
-import { MenuTypesList } from "./menuData";
+import { MenuTypesList } from "./selectListData";
 
 function MenuCreateModal(props) {
   const [descriptionWordCount, setDescriptionWordCount] = useState(0);
@@ -13,7 +14,9 @@ function MenuCreateModal(props) {
     image: "",
     description: "",
   });
-  const truck = truckStore.checkForTruck();
+  const truck = truckStore.trucks.find(
+    (truck) => truck.owner === authStore.user._id
+  );
   const handleChange = (e) => {
     setDish({ ...dish, [e.target.name]: e.target.value });
     if (e.target.name === "description")
